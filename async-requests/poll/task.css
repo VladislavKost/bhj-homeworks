@@ -9,3 +9,12 @@ body {
 .poll__title {
   margin-bottom: 20px;
 }
+
+.flex__buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.bold {
+  font-weight: 600;
+}
