@@ -44,21 +44,11 @@ Array.prototype.slice.call(addToChartButton).forEach((button) => {
     } else {
       const productImage = product.querySelector(".product__image").src;
 
-      const image = document.createElement("img");
-      image.classList.add("cart__product-image");
-      image.src = productImage;
-
-      const count = document.createElement("div");
-      count.classList.add("cart__product-count");
-      count.innerText = Number(prodAmountText);
-
-      const productInChart = document.createElement("div");
-      productInChart.classList.add("cart__product");
-      productInChart.setAttribute("data-id", productId);
-      productInChart.appendChild(image);
-      productInChart.appendChild(count);
-
-      chart.appendChild(productInChart);
+      const productTemplate = `<div class="cart__product" data-id="${productId}">
+      <img class="cart__product-image" src="${productImage}">
+      <div class="cart__product-count">${prodAmountText}</div>
+  </div>`;
+      chart.insertAdjacentHTML("beforeend", productTemplate);
     }
 
     prodAmount.innerText = "1";

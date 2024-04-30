@@ -4,7 +4,7 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   const inputEl = document.getElementById("task__input");
   const inputValue = inputEl.value;
-  if (inputValue) {
+  if (inputValue.trim()) {
     createTask(inputValue);
     const savedTasks = JSON.parse(localStorage.getItem("tasks"));
     const newTasks = savedTasks ? [...savedTasks, inputValue] : [inputValue];
@@ -14,24 +14,20 @@ form.addEventListener("submit", (e) => {
 });
 
 const createTask = (inputValue) => {
-  const task = document.createElement("div");
-  const taskTitle = document.createElement("div");
-  const taskRemove = document.createElement("a");
-
-  task.classList.add("task");
-
-  taskTitle.classList.add("task__title");
-  taskTitle.textContent = inputValue;
-
-  taskRemove.classList.add("task__remove");
-  taskRemove.setAttribute("href", "#");
-  taskRemove.innerHTML = "&times;";
-
-  taskRemove.addEventListener("click", removeTask);
-
-  task.appendChild(taskTitle);
-  task.appendChild(taskRemove);
-  tasksList.appendChild(task);
+  tasksList.insertAdjacentHTML(
+    "beforeend",
+    `
+        <div class="task">
+        <div class="task__title">
+            ${inputValue}
+        </div>
+        <a href="#" class="task__remove">&times;</a>
+        </div>
+    `
+  );
+  const lastTask = tasksList.lastElementChild;
+  const removeButton = lastTask.querySelector(".task__remove");
+  removeButton.addEventListener("click", removeTask);
 };
 
 const removeTask = (e) => {
